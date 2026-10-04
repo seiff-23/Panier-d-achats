@@ -1,0 +1,13 @@
+<h2>Compteur sans signal</h2>
+<p>Valeur : {{ valeur }}</p>
+<p>Carré : {{ carre }}</p>
+<p>Pair : {{ pair }}</p>
+<button (click)="incrementValeur()">Incrémenter</button>
+<button (click)="initValeur()">Reset</button>
+
+<h2>Compteur avec signals</h2>
+<p>Valeur : {{ value() }}</p>
+<p>Carré : {{ square() }}</p>
+<p>Pair : {{ even() }}</p>
+<button (click)="increment()">Incrémenter</button>
+<button (click)="reset()">Reset</button>
