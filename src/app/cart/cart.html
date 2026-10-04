@@ -1,25 +1,42 @@
-<h1>Panier d'achats</h1>
-<p>{{ totalItems() }} article(s)</p>
-<ul>
-  @for (item of items(); track item.id) {
-    <li>
-      <img [src]="item.photo" [alt]="item.name" width="40">
-      <b>{{ item.name | titlecase }}</b> ID : #{{ item.id }} Prix : {{ item.price }} DT
-      <button (click)="updateQuantity(item, -1)">-</button>
-      {{ item.quantity }}
-      <button (click)="updateQuantity(item, 1)">+</button>
-    </li>
-  }
-</ul>
-<button (click)="addItem()">+ Ajouter une bouteille d'eau (0.7 DT)</button>
-<div>
-  <input type="text" #nomArticle placeholder="Nom de l'article à supprimer">
-  <button (click)="deleteItem(nomArticle.value)">Supprimer</button>
-</div>
-<div>
-  <p>Prix Total des articles : {{ totalPrice() | number:'1.3-3' }} DT</p>
-  @if (remise() > 0) {
-    <p>Remise : - {{ remise() | number:'1.3-3' }} DT</p>
-  }
-  <p><b>Prix Final : {{ finalPrice() | number:'1.3-3' }} DT</b></p>
+<div class="container">
+  <div class="d-flex justify-content-between text-bg-dark p-3 rounded">
+    <h1>Panier d'achats</h1>
+    <span>{{ totalItems() }} article(s)</span>
+  </div>
+
+  <ul class="list-group">
+    @for (item of items(); track item.id) {
+      <li class="list-group-item d-flex justify-content-between">
+        <div>
+          <img [src]="item.photo" [alt]="item.name" width="40">
+          <b>{{ item.name | titlecase }}</b> ID : #{{ item.id }}
+          <span class="badge text-bg-warning">Prix : {{ item.price }} DT</span>
+        </div>
+        <div class="input-group mb-3" style="width: 120px;">
+          <button (click)="updateQuantity(item, -1)">-</button>
+          <input class="input-group-text" [value]="item.quantity" [disabled]="true" style="width: 60px;">
+          <button (click)="updateQuantity(item, 1)">+</button>
+        </div>
+      </li>
+    }
+  </ul>
+
+  <div class="d-flex justify-content-between">
+    <button class="btn btn-success" (click)="addItem()">+ Ajouter une bouteille d'eau (0.7 DT)</button>
+    <div>
+      <input type="text" #nomArticle placeholder="Nom de l'article à supprimer">
+      <button class="btn btn-danger" (click)="deleteItem(nomArticle.value)">Supprimer</button>
+    </div>
+  </div>
+
+  <div class="p-3 rounded"
+       [class.text-bg-warning]="remise() > 0"
+       [class.text-bg-dark]="remise() === 0"
+       style="margin-top: 20px;">
+    <p>Prix Total des articles : {{ totalPrice() | number:'1.3-3' }} DT</p>
+    @if (remise() > 0) {
+      <p>Remise : - {{ remise() | number:'1.3-3' }} DT</p>
+    }
+    <p><b>Prix Final : {{ finalPrice() | number:'1.3-3' }} DT</b></p>
+  </div>
 </div>
