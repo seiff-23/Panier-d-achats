@@ -35,6 +35,7 @@ export class Cart {
   });
 
   remise = computed(() => this.totalPrice() > 100 ? this.totalPrice() * 0.02 : 0);
+  
   finalPrice = computed(() => this.totalPrice() - this.remise());
 
   updateQuantity(item: Item, value: number) {
@@ -45,9 +46,13 @@ export class Cart {
 
   addItem() {
     this.id++;
-    this.items.update(articles => [...articles,
-      { id: this.id, photo: 'articles/eau.jpg', name: 'eau', price: 0.7, quantity: 1 }
-    ]);
+    this.items.update(articles => {
+      const nouveauTableau = [...articles];
+      nouveauTableau.push({
+        id: this.id, photo: 'articles/eau.jpg', name: 'eau', price: 0.7, quantity: 1
+      });
+      return nouveauTableau;
+    });
   }
 
   deleteItem(nom: string) {

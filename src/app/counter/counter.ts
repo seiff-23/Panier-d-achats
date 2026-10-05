@@ -19,16 +19,18 @@ export class Counter {
     this.valeur++;
   }
 
+
+
   value = signal(20);
-  square = computed(() => this.value() * this.value());
-  even = computed(() => this.value() % 2 === 0);
+  square = computed( () => this.value() * this.value());
+  even = computed( () => this.value() % 2 === 0);
 
   reset() {
     this.value.set(0);
   }
 
   increment() {
-    this.value.update(v => v + 1);
+    this.value.update(v => v+1 );
   }
 
   constructor() {
